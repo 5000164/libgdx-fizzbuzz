@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.{BitmapFont, SpriteBatch}
 import com.badlogic.gdx.graphics.{Color, GL20}
 import com.badlogic.gdx.utils.TimeUtils
 import com.badlogic.gdx.{Game, Gdx}
-import jp._5000164.libgdx_fizzbuzz.models.{Question, Status}
+import jp._5000164.libgdx_fizzbuzz.models.{Listener, Question, Status}
 
 class View extends Game {
   var batch: SpriteBatch = _
@@ -31,6 +31,10 @@ class View extends Game {
     batch.begin()
 
     val status = new Status(globalStatus.startMilliSeconds, TimeUtils.millis(), globalStatus.displayString)
+
+    val listener = new Listener(status)
+    listener.continueOrExit()
+
     val question = new Question(status)
 
     font.draw(batch, question.renderQuestion(), 390, 230)
