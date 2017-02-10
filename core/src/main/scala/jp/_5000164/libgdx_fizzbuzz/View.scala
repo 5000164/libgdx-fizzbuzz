@@ -4,14 +4,15 @@ import com.badlogic.gdx.graphics.g2d.{BitmapFont, SpriteBatch}
 import com.badlogic.gdx.graphics.{Color, GL20}
 import com.badlogic.gdx.utils.TimeUtils
 import com.badlogic.gdx.{Game, Gdx}
+import jp._5000164.libgdx_fizzbuzz.models.{Question, Status}
 
 class View extends Game {
   var batch: SpriteBatch = _
   var font: BitmapFont = _
-  var startMilliSeconds: Long = _
+  var globalStatus: Status = _
 
   override def create(): Unit = {
-    startMilliSeconds = TimeUtils.millis()
+    globalStatus = new Status(TimeUtils.millis(), TimeUtils.millis(), "")
 
     batch = new SpriteBatch
     font = new BitmapFont
@@ -29,8 +30,11 @@ class View extends Game {
 
     batch.begin()
 
-    val elapsedSeconds = (TimeUtils.millis() - startMilliSeconds) / 1000
-    font.draw(batch, elapsedSeconds.toString, 780, 470)
+    val status = new Status(globalStatus.startMilliSeconds, TimeUtils.millis(), globalStatus.displayString)
+    val question = new Question(status)
+
+    font.draw(batch, question.renderQuestion(), 390, 230)
+    font.draw(batch, question.renderElapsedSeconds(), 780, 470)
 
     batch.end()
   }
