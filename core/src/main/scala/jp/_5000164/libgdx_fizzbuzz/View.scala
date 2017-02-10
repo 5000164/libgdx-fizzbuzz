@@ -3,7 +3,7 @@ package jp._5000164.libgdx_fizzbuzz
 import com.badlogic.gdx.graphics.g2d.{BitmapFont, SpriteBatch}
 import com.badlogic.gdx.graphics.{Color, GL20}
 import com.badlogic.gdx.utils.TimeUtils
-import com.badlogic.gdx.{Game, Gdx}
+import com.badlogic.gdx.{Game, Gdx, Input}
 import jp._5000164.libgdx_fizzbuzz.models.{Listener, Question, Status}
 
 class View extends Game {
@@ -12,7 +12,17 @@ class View extends Game {
   var globalStatus: Status = _
 
   override def create(): Unit = {
-    globalStatus = new Status(TimeUtils.millis(), TimeUtils.millis(), "")
+    globalStatus = new Status(
+      TimeUtils.millis(),
+      TimeUtils.millis(),
+      TimeUtils.millis(),
+      "",
+      false,
+      false,
+      false,
+      false,
+      false
+    )
 
     batch = new SpriteBatch
     font = new BitmapFont
@@ -30,12 +40,25 @@ class View extends Game {
 
     batch.begin()
 
-    val status = new Status(globalStatus.startMilliSeconds, TimeUtils.millis(), globalStatus.displayString)
+    globalStatus = new Status(
+      globalStatus.startMilliSeconds,
+      TimeUtils.millis(),
+      globalStatus.lastInputMilliSeconds,
+      globalStatus.displayString,
+      Gdx.input.isKeyPressed(Input.Keys.UP),
+      Gdx.input.isKeyPressed(Input.Keys.RIGHT),
+      Gdx.input.isKeyPressed(Input.Keys.DOWN),
+      Gdx.input.isKeyPressed(Input.Keys.LEFT),
+      globalStatus.isExit
+    )
 
-    val listener = new Listener(status)
-    listener.continueOrExit()
+    val listener = new Listener(globalStatus)
+    globalStatus = listener.updateStatus()
+    if (globalStatus.isExit) {
+      Gdx.app.exit()
+    }
 
-    val question = new Question(status)
+    val question = new Question(globalStatus)
 
     font.draw(batch, question.renderQuestion(), 390, 230)
     font.draw(batch, question.renderElapsedSeconds(), 780, 470)
