@@ -6,6 +6,6 @@ class Question(status: Status) {
   }
 
   def renderElapsedSeconds(): String = {
-    ((status.nowMilliSeconds - status.startMilliSeconds) / 1000).toString
+    status.getElapsedSeconds.toString
   }
 }
