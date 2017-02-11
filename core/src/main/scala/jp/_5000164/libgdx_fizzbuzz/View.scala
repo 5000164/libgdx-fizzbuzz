@@ -59,9 +59,10 @@ class View extends Game {
     }
 
     val question = new Question(globalStatus)
+    globalStatus = question.generate()
 
-    font.draw(batch, question.renderQuestion(), 390, 230)
-    font.draw(batch, question.renderElapsedSeconds(), 780, 470)
+    font.draw(batch, globalStatus.displayString, 390, 230)
+    font.draw(batch, globalStatus.getElapsedSeconds.toString, 780, 470)
 
     batch.end()
   }
