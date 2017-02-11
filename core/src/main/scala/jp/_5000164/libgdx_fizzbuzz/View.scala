@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.{BitmapFont, SpriteBatch}
 import com.badlogic.gdx.graphics.{Color, GL20}
 import com.badlogic.gdx.utils.TimeUtils
 import com.badlogic.gdx.{Game, Gdx, Input}
-import jp._5000164.libgdx_fizzbuzz.models.{Listener, Question, Status}
+import jp._5000164.libgdx_fizzbuzz.models.{Question, Referee, Status}
 
 class View extends Game {
   var batch: SpriteBatch = _
@@ -56,8 +56,8 @@ class View extends Game {
       globalStatus.isExit
     )
 
-    val listener = new Listener(globalStatus)
-    globalStatus = listener.updateStatus()
+    val referee = new Referee(globalStatus)
+    globalStatus = referee.judge()
     if (globalStatus.isExit) {
       Gdx.app.exit()
     }
