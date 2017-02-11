@@ -11,6 +11,8 @@ class Status(
               val isInputKeyRight: Boolean,
               val isInputKeyDown: Boolean,
               val isInputKeyLeft: Boolean,
+              val isInitial: Boolean,
+              val isCorrect: Boolean,
               val isExit: Boolean
             ) {
   def getElapsedSeconds: Int = {

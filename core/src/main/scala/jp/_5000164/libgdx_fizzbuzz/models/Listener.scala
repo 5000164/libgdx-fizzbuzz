@@ -15,6 +15,8 @@ class Listener(status: Status) {
       status.isInputKeyRight,
       status.isInputKeyDown,
       status.isInputKeyLeft,
+      status.isInitial,
+      status.isCorrect,
       isExit
     )
   }

@@ -21,6 +21,8 @@ class View extends Game {
       false,
       false,
       false,
+      true,
+      false,
       false
     )
 
@@ -49,6 +51,8 @@ class View extends Game {
       Gdx.input.isKeyPressed(Input.Keys.RIGHT),
       Gdx.input.isKeyPressed(Input.Keys.DOWN),
       Gdx.input.isKeyPressed(Input.Keys.LEFT),
+      globalStatus.isInitial,
+      globalStatus.isCorrect,
       globalStatus.isExit
     )
 
