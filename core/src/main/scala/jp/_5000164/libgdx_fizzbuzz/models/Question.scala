@@ -27,6 +27,6 @@ class Question(status: Status) {
   }
 
   def generateNewNumber(): Int = {
-    (new Random).nextInt(30) + 1
+    (new Random).nextInt(99) + 1
   }
 }
