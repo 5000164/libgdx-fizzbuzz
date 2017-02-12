@@ -25,7 +25,8 @@ class View extends Game {
       false,
       true,
       false,
-      false
+      false,
+      0
     )
 
     batch = new SpriteBatch
@@ -57,7 +58,8 @@ class View extends Game {
       globalStatus.isInputting,
       globalStatus.isInitial,
       globalStatus.isCorrect,
-      globalStatus.isExit
+      globalStatus.isExit,
+      globalStatus.correctCount
     )
 
     val referee = new Referee(globalStatus)
@@ -70,6 +72,7 @@ class View extends Game {
     globalStatus = question.generate()
 
     font.draw(batch, globalStatus.displayString, 390, 230)
+    font.draw(batch, globalStatus.correctCount.toString, 20, 470)
     font.draw(batch, globalStatus.getElapsedSeconds.toString, 780, 470)
 
     batch.end()

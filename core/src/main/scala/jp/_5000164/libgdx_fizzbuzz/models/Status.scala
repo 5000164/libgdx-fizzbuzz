@@ -15,7 +15,8 @@ class Status(
               val isInputting: Boolean,
               val isInitial: Boolean,
               val isCorrect: Boolean,
-              val isExit: Boolean
+              val isExit: Boolean,
+              val correctCount: Int
             ) {
   def getElapsedSeconds: Int = {
     floor(((nowMilliSeconds - startMilliSeconds) / 1000).toDouble).toInt

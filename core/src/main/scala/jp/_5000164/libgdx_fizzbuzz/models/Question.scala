@@ -18,7 +18,8 @@ class Question(status: Status) {
         status.isInputting,
         false,
         false,
-        status.isExit
+        status.isExit,
+        status.correctCount
       )
     } else {
       status
