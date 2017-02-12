@@ -8,13 +8,17 @@ class Referee(status: Status) {
     val isInputting = status.isInputted && isInputted
     val isCorrect = if (isInputted && !isInputting) checkingAnswers(status.isInputKeyUp, status.isInputKeyRight, status.isInputKeyDown, status.isInputKeyLeft, status.displayString) else false
     val lastInputMilliSeconds = if (isInputted && !isInputting) TimeUtils.millis() else status.lastInputMilliSeconds
-    val isExit = if (isInputting) {
-      status.getElapsedSecondsFromLastInput >= 5
+    val isExit = if (status.getElapsedSeconds >= 10) {
+      true
     } else {
-      if (isInputted) {
-        if (isCorrect) false else true
-      } else {
+      if (isInputting) {
         status.getElapsedSecondsFromLastInput >= 5
+      } else {
+        if (isInputted) {
+          if (isCorrect) false else true
+        } else {
+          status.getElapsedSecondsFromLastInput >= 5
+        }
       }
     }
 
