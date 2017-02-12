@@ -5,9 +5,19 @@ import com.badlogic.gdx.utils.TimeUtils
 class Referee(status: Status) {
   def judge(): Status = {
     val isInputted = status.isInputKeyUp || status.isInputKeyRight || status.isInputKeyDown || status.isInputKeyLeft
+    val isInputting = status.isInputted && isInputted
     val isCorrect = if (isInputted) true else false
-    val lastInputMilliSeconds = if (isInputted) TimeUtils.millis() else status.lastInputMilliSeconds
-    val isExit = if (isInputted) if (isCorrect) false else true else status.getElapsedSecondsFromLastInput >= 5
+    val lastInputMilliSeconds = if (isInputted && !isInputting) TimeUtils.millis() else status.lastInputMilliSeconds
+    val isExit = if (isInputting) {
+      status.getElapsedSecondsFromLastInput >= 5
+    } else {
+      if (isInputted) {
+        if (isCorrect) false else true
+      } else {
+        status.getElapsedSecondsFromLastInput >= 5
+      }
+    }
+
     new Status(
       status.startMilliSeconds,
       status.nowMilliSeconds,
@@ -17,6 +27,8 @@ class Referee(status: Status) {
       status.isInputKeyRight,
       status.isInputKeyDown,
       status.isInputKeyLeft,
+      isInputted,
+      isInputting,
       status.isInitial,
       isCorrect,
       isExit

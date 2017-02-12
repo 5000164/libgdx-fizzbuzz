@@ -4,7 +4,7 @@ import scala.util.Random
 
 class Question(status: Status) {
   def generate(): Status = {
-    if (status.isCorrect || status.isInitial) {
+    if (!status.isInputting && status.isCorrect || status.isInitial) {
       new Status(
         status.startMilliSeconds,
         status.nowMilliSeconds,
@@ -14,6 +14,8 @@ class Question(status: Status) {
         status.isInputKeyRight,
         status.isInputKeyDown,
         status.isInputKeyLeft,
+        status.isInputted,
+        status.isInputting,
         false,
         false,
         status.isExit
