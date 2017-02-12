@@ -12,12 +12,12 @@ class Referee(status: Status) {
       true
     } else {
       if (isInputting) {
-        status.getElapsedSecondsFromLastInput >= 5
+        status.getElapsedSecondsFromLastInput >= 2
       } else {
         if (isInputted) {
           if (isCorrect) false else true
         } else {
-          status.getElapsedSecondsFromLastInput >= 5
+          status.getElapsedSecondsFromLastInput >= 2
         }
       }
     }
